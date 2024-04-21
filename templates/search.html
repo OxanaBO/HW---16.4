@@ -1,0 +1,30 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+{% load custom_tags %}
+
+{% block content %}
+    <h1>Поиск новости или статьи</h1>
+
+    <form action="" method="get">
+        {{ filterset.form.as_p }}
+        <input type="submit" value="Найти" />
+    </form>
+
+    {% if posts %}
+        <table>
+            {% for post in posts %}
+            <tr>
+                <td>{{ post.title|censor }}</td>
+                <td>{{ post.choice }}</td>
+                <td>{{ post.time_post|date:'d M Y' }}</td>
+                <td>{{ post.text|truncatechars:20|censor }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h2>Новостей нет!</h2>
+    {% endif %}
+
+{% endblock content %}
+
